@@ -1,43 +1,45 @@
 pipeline {
-    agenet any
-    
+    agent any
+
     stages {
+
         stage('Checkout') {
             steps {
                 echo "Checking out source code"
             }
         }
 
-        stage("Install Dependencies") {
+        stage('Install Dependencies') {
             steps {
                 bat 'pip install -r requirements.txt'
             }
         }
 
-        stage('Run application') {
+        stage('Run Application') {
             steps {
                 bat 'python app.py'
             }
         }
 
-        stage('Run tests') {
+        stage('Run Tests') {
             steps {
                 bat 'pytest'
             }
         }
+    }
 
-        post {
-            success {
-                echo "pipeline completed successfully"
-            }
+    post {
+
+        success {
+            echo "Pipeline completed successfully."
         }
 
         failure {
-            echo "pipeline failed"
+            echo "Pipeline failed."
         }
 
         always {
-            echo "Build finished"
+            echo "Build finished."
         }
     }
 }
